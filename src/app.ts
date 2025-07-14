@@ -35,15 +35,6 @@ export default async function serviceApp (
     options: { ...opts }
   })
 
-  // This loads all plugins defined in routes
-  // define your routes in one of these
-  fastify.register(fastifyAutoload, {
-    dir: path.join(import.meta.dirname, 'routes'),
-    autoHooks: true,
-    cascadeHooks: true,
-    options: { ...opts }
-  })
-
   fastify.setErrorHandler((err, request, reply) => {
     fastify.log.error(
       {
