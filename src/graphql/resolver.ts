@@ -1,32 +1,22 @@
 import { FastifyInstance } from 'fastify'
 
-type Lead = {
-  id: string
-  name: string
-  email: string
-  mobile: string
-  postcode: string
-  services: string[]
-}
-
-// In-memory storage
-const leads: Lead[] = []
-
-export function createResolvers(_fastify: FastifyInstance) {
+export function createResolvers(fastify: FastifyInstance) {
   return {
-    leads: async () => {
-      return leads
-    },
-    lead: async ({ id }: { id: string }) => {
-      return leads.find(lead => lead.id === id) || null
-    },
-    register: async ({ input }: { input: Omit<Lead, 'id'> }) => {
-      const newLead: Lead = {
-        id: crypto.randomUUID(),
-        ...input,
+    Query: {
+      leads: async () => {
+        const { leadsRepository } = fastify
+        return leadsRepository.findAll()
+      },
+      lead: async (_: any, { id }: { id: string }) => {
+        const { leadsRepository } = fastify
+        return leadsRepository.findById(id)
       }
-      leads.push(newLead)
-      return newLead
     },
+    Mutation: {
+      register: async (_: any, { input }: { input: any }) => {
+        const { leadsRepository } = fastify
+        return leadsRepository.create(input)
+      }
+    }
   }
 }
