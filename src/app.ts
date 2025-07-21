@@ -5,6 +5,8 @@
 import path from 'node:path'
 import fastifyAutoload from '@fastify/autoload'
 import { FastifyInstance, FastifyPluginOptions } from 'fastify'
+// import { createResolvers } from './graphql/resolver.js'
+// import {schema} from './graphql/schema.js'
 
 export const options = {
   ajv: {
@@ -32,6 +34,17 @@ export default async function serviceApp (
   // through your application
   fastify.register(fastifyAutoload, {
     dir: path.join(import.meta.dirname, 'plugins/app'),
+    options: { ...opts }
+  })
+
+
+
+  // This loads all plugins defined in routes
+  // define your routes in one of these
+  fastify.register(fastifyAutoload, {
+    dir: path.join(import.meta.dirname, 'routes'),
+    autoHooks: true,
+    cascadeHooks: true,
     options: { ...opts }
   })
 
