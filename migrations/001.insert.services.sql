@@ -1,1 +1,0 @@
-INSERT INTO services (name) VALUES ('delivery'), ('pick-up'), ('payment');

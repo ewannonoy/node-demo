@@ -17,12 +17,22 @@ async function seed () {
 
   try {
     await truncateTables(connection)
-    await seedUsers(connection)
+    await seedServices(connection)
   } catch (error) {
     console.error('Error seeding database:', error)
   } finally {
     await connection.end()
   }
+}
+
+async function seedServices (connection: Connection) {
+  await connection.execute(`
+    INSERT INTO services (name) VALUES
+    ('delivery'),
+    ('pick-up'),
+    ('payment')
+  `)
+  console.log('Services have been seeded successfully.')
 }
 
 async function truncateTables (connection: Connection) {
@@ -44,46 +54,6 @@ async function truncateTables (connection: Connection) {
       await connection.query('SET FOREIGN_KEY_CHECKS = 1')
     }
   }
-}
-
-async function seedUsers (connection: Connection) {
-  const users = [
-    { username: 'basic', email: 'basic@example.com' },
-    { username: 'moderator', email: 'moderator@example.com' },
-    { username: 'admin', email: 'admin@example.com' }
-  ]
-  const hash = await scryptHash('Password123$')
-
-  // The goal here is to create a role hierarchy
-  // E.g. an admin should have all the roles
-  const rolesAccumulator: number[] = []
-
-  for (const user of users) {
-    const [userResult] = await connection.execute(`
-      INSERT INTO users (username, email, password)
-      VALUES (?, ?, ?)
-    `, [user.username, user.email, hash])
-
-    const userId = (userResult as { insertId: number }).insertId
-
-    const [roleResult] = await connection.execute(`
-      INSERT INTO roles (name)
-      VALUES (?)
-    `, [user.username])
-
-    const newRoleId = (roleResult as { insertId: number }).insertId
-
-    rolesAccumulator.push(newRoleId)
-
-    for (const roleId of rolesAccumulator) {
-      await connection.execute(`
-        INSERT INTO user_roles (user_id, role_id)
-        VALUES (?, ?)
-      `, [userId, roleId])
-    }
-  }
-
-  console.log('Users have been seeded successfully.')
 }
 
 seed()
