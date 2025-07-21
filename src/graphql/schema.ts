@@ -7,23 +7,29 @@ export const schema = buildSchema(`
     email: String!
     mobile: String!
     postcode: String!
-    services: [String!]!
+    services: [Service!]!
   }
 
-  input LeadInput {
+  type Service {
+    id: ID!
+    name: String!
+  }
+
+  input RegisterInput {
     name: String!
     email: String!
     mobile: String!
     postcode: String!
-    services: [String!]!
+    serviceIds: [ID!]!
   }
 
   type Query {
     leads: [Lead!]!
     lead(id: ID!): Lead
+    services: [Service!]!
   }
 
   type Mutation {
-    register(input: LeadInput!): Lead!
+    register(input: RegisterInput!): Lead!
   }
 `)

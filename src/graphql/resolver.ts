@@ -10,7 +10,7 @@ export function createResolvers(fastify: FastifyInstance) {
       lead: async (_: any, { id }: { id: string }) => {
         const { leadsRepository } = fastify
         return leadsRepository.findById(id)
-      }
+      },
     },
     Mutation: {
       register: async (_: any, { input }: { input: any }) => {

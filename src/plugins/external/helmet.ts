@@ -1,12 +1,10 @@
+import fp from 'fastify-plugin'
 import helmet from '@fastify/helmet'
 
-export const autoConfig = {
-  // Set plugin options here
-}
+export const autoConfig = {}
 
-/**
- * This plugins sets the basic security headers.
- *
- * @see {@link https://github.com/fastify/fastify-helmet}
- */
-export default helmet
+export default fp(async (fastify) => {
+  await fastify.register(helmet, {
+    contentSecurityPolicy: false
+  })
+})
