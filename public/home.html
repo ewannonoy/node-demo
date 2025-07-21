@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Create Lead</title>
+    <script type="module" src="/main.js" defer></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-100 py-10">
+    <div class="max-w-md mx-auto bg-white shadow-lg p-6 rounded-lg">
+      <h2 class="text-2xl font-bold mb-4 text-center">Create Lead</h2>
+      <form id="lead-form" class="space-y-4">
+        <div>
+          <label class="block font-medium">Name</label>
+          <input
+            type="text"
+            name="name"
+            required
+            class="w-full border border-gray-300 rounded px-3 py-2"
+          />
+        </div>
+        <div>
+          <label class="block font-medium">Email</label>
+          <input
+            type="email"
+            name="email"
+            required
+            class="w-full border border-gray-300 rounded px-3 py-2"
+          />
+        </div>
+        <div>
+          <label class="block font-medium">Mobile</label>
+          <input
+            type="text"
+            name="mobile"
+            required
+            class="w-full border border-gray-300 rounded px-3 py-2"
+          />
+        </div>
+        <div>
+          <label class="block font-medium">Postcode</label>
+          <input
+            type="text"
+            name="postcode"
+            required
+            class="w-full border border-gray-300 rounded px-3 py-2"
+          />
+        </div>
+        <div>
+          <label class="block font-medium">Services</label>
+          <select
+            name="serviceIds"
+            multiple
+            required
+            class="w-full border border-gray-300 rounded px-3 py-2"
+          >
+            <option value="1">Delivery</option>
+            <option value="2">Pick-up</option>
+            <option value="3">Payment</option>
+          </select>
+        </div>
+        <button
+          type="submit"
+          class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
+        >
+          Submit
+        </button>
+        <p id="message" class="text-center text-green-600 mt-2"></p>
+      </form>
+    </div>
+  </body>
+</html>
