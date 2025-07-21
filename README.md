@@ -112,3 +112,10 @@ query {
   }
 }
 ```
+
+## MVP++ / Improvements
+
+* **Pagination**: Implement pagination for the `leads` query to handle large datasets.
+* **Sorting & Filtering**: Allow sorting leads by name or submission date, and filtering by service.
+* **Service Management**: Add a separate admin endpoint or tool to manage available services.
+* **Authentication**: Add user authentication and restrict access to lead data.
