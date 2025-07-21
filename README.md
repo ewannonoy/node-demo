@@ -1,16 +1,33 @@
-# Fastify Official Demo
+# Fastify GraphQL Lead Form
 
-[![CI](https://github.com/fastify/demo/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/fastify/demo/actions/workflows/ci.yml)
+This project demonstrates a simple lead form that submits data via a GraphQL mutation to a Fastify backend with a MySQL database.
 
-The aim of this repository is to provide a concrete example of a Fastify application using what are considered best practices by the Fastify community.
+## About This Exercise
 
-**Prerequisites:** You need to have Node.js version 22 or higher installed.
+This take-home project demonstrates my adaptability as a developer.
 
-## About the Application
+Node.js is my third or fourth most-used language, behind Java and PHP. Previously, I have only used Express for Node.js development. However, this exercise shows that I can quickly adapt to other tools within the ecosystem.
 
-This demo is a simple task management API. 
-It allows users to create, retrieve, update, and delete tasks.
-Additional features include file uploads, CSV downloads, task assignment, and role-based access control.
+In this case, I used Fastify along with GraphQL to implement a simple lead management application. This allowed me to explore Fastify's performance benefits and GraphQL's flexibility for frontend integration.
+
+We also use Docker to manage and run the MySQL database instance. This showcases some of my DevOps familiarity, particularly with containerized environments and managing development infrastructure in a repeatable and scalable way.
+
+My ability to combine unfamiliar frameworks and produce a functional solution reinforces my flexibility and eagerness to learn when solving engineering problems.
+
+Tech Sta
+## Tech Stack
+
+- Fastify
+    - main site: https://fastify.dev/
+    - demo repo used as referenced: https://github.com/fastify/demo
+- GraphQL
+- TypeScript / JavaScript
+- MySQL (via Docker)
+- Docker Compose
+- Tailwind CSS (for frontend form)
+- Static HTML + JS
+
+---
 
 ## Getting started
 Install the dependencies:
@@ -49,53 +66,49 @@ To drop the database, run:
 npm run db:drop
 ```
 
-### TypeScript
-To build the project:
-```bash
-npm run build
-```
+## Running the App
 
-### Start the server
-In dev mode:
-```bash
+```
 npm run dev
 ```
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-In production mode:
-```bash
-npm run start
+Then visit: http://localhost:3000/home.html
+
+## GraphQL Endpoint
+
+visit: http://localhost:3000/graphiql
+
+
+## Example Mutation
+
+```
+mutation RegisterLead {
+  register(input: {
+    name: "Jane Smith",
+    email: "jane@example.com",
+    mobile: "0987654321",
+    postcode: "5000",
+    serviceIds: ["1", "3"]
+  }) {
+    id
+    name
+    email
+  }
+}
 ```
 
-### API Documentation
+## Example Query
 
-The application exposes interactive API documentation using Swagger UI.
-
-Once the server is running, visit: http://localhost:3000/api/docs
-
-### Testing
-To run the tests:
-```bash
-npm run test
 ```
-
-### Standalone
-`dev` and `start` leverage [fastify-cli](https://github.com/fastify/fastify-cli),
-but you can run the demo as a standalone executable (see [server.ts](./src/server.ts)):
-```bash
-npm run standalone
+query {
+  leads {
+    id
+    name
+    email
+    services {
+      id
+      name
+    }
+  }
+}
 ```
-
-### Linting
-To check for linting errors:
-```bash
-npm run lint
-```
-
-To check and automatically fix linting errors:
-```bash
-npm run lint:fix
-```
-
-## Learn More
-To learn more about Fastify, check out the [Fastify documentation](https://www.fastify.io/docs/latest/).
